@@ -5,6 +5,7 @@ defmodule KV.Registry do
   @doc """
   Starts the registry, accepts a name so that it can be easily supervised
   """
+  @spec start_link(atom) :: {:ok, pid}
   def start_link(name) do
     GenServer.start_link(__MODULE__, :ok, name: name)
   end
@@ -13,13 +14,15 @@ defmodule KV.Registry do
   Return the PID of a bucket with 'name' in 'server'
   Returns {:ok, pid} if found, :error otherwise
   """
+  @spec lookup(atom, String.t) :: {atom, pid}
   def lookup(server, name) do
     GenServer.call(server, {:lookup, name})
   end
   @doc """
   Ensure there is a bucket with 'name' in 'server'
   """
-  def create(server, name) do
+  @spec create_bucket(atom, String.t) :: {atom, pid}
+  def create_bucket(server, name) do
     GenServer.call(server, {:create, name})
   end
   # Private API

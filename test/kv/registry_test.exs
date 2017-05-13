@@ -9,7 +9,7 @@ defmodule KV.RegistryTest do
   test "registers and spawns buckets", %{registry: registry} do
     assert KV.Registry.lookup(registry, "shopping") == :error
 
-    KV.Registry.create(registry, "shopping")
+    KV.Registry.create_bucket(registry, "shopping")
     assert {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
 
     KV.Bucket.put(bucket, "milk", 1)
@@ -17,7 +17,7 @@ defmodule KV.RegistryTest do
   end
 
   test "removes buckets on exit", %{registry: registry} do
-    KV.Registry.create(registry, "stale_entry")
+    KV.Registry.create_bucket(registry, "stale_entry")
     {:ok, bucket} = KV.Registry.lookup(registry, "stale_entry")
     # Normal stop reason
     Agent.stop(bucket)
@@ -25,7 +25,7 @@ defmodule KV.RegistryTest do
   end
 
   test "removes bucket on crash", %{registry: registry} do
-    KV.Registry.create(registry, "stale_entry")
+    KV.Registry.create_bucket(registry, "stale_entry")
     {:ok, bucket} = KV.Registry.lookup(registry, "stale_entry")
     # Abnormal stop reason (crash)
     ref = Process.monitor(bucket)

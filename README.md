@@ -8,6 +8,14 @@
   3. KV.Bucket.Supervisor -> Supervisor for grouping and managing KV buckets, :simple_one_for_one strategy, if KV.Bucket.Supervisor goes down, Registry stays up but supervisor and buckets are restarted
   4. KV.Bucket -> Module implementing Agent for stateful KV stores.
 
+## Want To
+  1. JOTP.GenServer: GenServer implementation from scratch
+  2. JOTP.Supervisor: Supervisor implementation from GenServer
+  3. Stateful backup for supervisor replacement
+
+## Static Analysis
+
+```mix dialyzer```
 ## Tests
 ```mix test```
 
