@@ -1,19 +1,13 @@
 # KV
 
-**TODO: Add description**
+## Trivial distributed (soon) key value store to explore OTP behaviors and supervision strategies.
 
-## Installation
+## Currently Implemented
+  1. KV.Supervisor -> Application supervisor for workers and other supervisors, :rest_for_one strategy
+  2. KV.Registry -> OTP Genserver for registerying buckets, buckets are independent key value stores, if KV.Registry crashes, the application is restarted
+  3. KV.Bucket.Supervisor -> Supervisor for grouping and managing KV buckets, :simple_one_for_one strategy, if KV.Bucket.Supervisor goes down, Registry stays up but supervisor and buckets are restarted
+  4. KV.Bucket -> Module implementing Agent for stateful KV stores.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `kv` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [{:kv, "~> 0.1.0"}]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/kv](https://hexdocs.pm/kv).
+## Tests
+```mix test```
 
